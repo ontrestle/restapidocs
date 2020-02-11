@@ -1,38 +1,56 @@
-# RESTAPIDocs Examples
+# Comradery API Docs
 
-These examples were taken from projects mainly using [Django Rest
-Framework](https://github.com/tomchristie/django-rest-framework) and so the
-JSON responses are often similar to the way in which DRF makes responses.
+Base URL: https://api.comradery.io/v2
 
-Where full URLs are provided in responses they will be rendered as if service
-is running on 'http://testserver/'.
+## Authentication
 
-## Open Endpoints
+On your Admin Panel, you should be able to generate an Admin-scoped API key. Be _very_ careful with this API key, it can do everything you can including creating, reading, editing, and deleting users, posts, and more.
 
-Open endpoints require no Authentication.
+To authenticate you must include an `Authorization: Token <api_key_here>` header on each request.
 
-* [Login](login.md) : `POST /api/login/`
+## Analytics
 
-## Endpoints that require Authentication
+We have integrated with Segment for analytics. Please read the documentation [here](analytics/segment.md) for more information.
 
-Closed endpoints require a valid Token to be included in the header of the
-request. A Token can be acquired from the Login view above.
+## Custom CSS
 
-### Current User related
+We allow you to upload custom CSS! Please read the documentation [here](customization/css.md) for more information.
 
-Each endpoint manipulates or displays information related to the User whose
-Token is provided with the request:
+## Endpoints
 
-* [Show info](user/get.md) : `GET /api/user/`
-* [Update info](user/put.md) : `PUT /api/user/`
+### Communities
 
-### Account related
+Each endpoint manipulates or displays information related to the provided community. Note that your API key will only work on communities that you control.
 
-Endpoints for viewing and manipulating the Accounts that the Authenticated User
-has permissions to access.
+* [Show Info](communities/get.md) : `GET /community/<community_url>/`
+* [Update Info](communities/post.md) : `POST /community/<community_url/`
+* [Upload Logo](communities/upload_logo.md) : `PUT /community/<community_url>/upload_photo`
+
+### People
+
+Endpoints for viewing and manipulating profiles.
 
 * [Show Accessible Accounts](accounts/get.md) : `GET /api/accounts/`
 * [Create Account](accounts/post.md) : `POST /api/accounts/`
 * [Show An Account](accounts/pk/get.md) : `GET /api/accounts/:pk/`
 * [Update An Account](accounts/pk/put.md) : `PUT /api/accounts/:pk/`
 * [Delete An Account](accounts/pk/delete.md) : `DELETE /api/accounts/:pk/`
+
+### Posts
+
+Endpoints for viewing and manipulating posts.
+
+* [Create a Post](posts/create.md) : `POST /post/create/`
+* [Retrieve a List of Posts](posts/list.md) : `GET /community/<community_url>/posts
+* [Retrieve a Post](posts/get.md) : `GET /post/<post_id>/`
+* [Edit a Post](posts/edit.md) : `POST /post/<post_id>/`
+
+### Comments
+
+Endpoints for viewing and manipulation comments.
+
+* [Create a Comment](comments/create.md) : `POST /post/<post_id>/comment`
+* [Retrieve a Comment](comments/get.md) : `GET /comment/<comment_id>/`
+* [Edit a Comment](comments/edit.md) : `POST /comment/<comment_id>/`
+
+### Misc
